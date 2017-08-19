@@ -1,56 +1,57 @@
-<h1>Cats!</h1>
+<div class="content cntr">
 
-<h2>Cats that are not sleepy!</h2>
+  <div class="container txt-cntr"><img src="assets/images/tastyBurger.jpg"></div>
+  <div class="container">
+    <div class="burger-holder" id="uneaten">
+      <ul>
+        {{#each burgers}}
+          {{#unless this.devoured}}
+            <li>
+              {{this.id}}. {{this.burger_name}}
 
-<ul>
-  {{#each cats}}
-    {{#unless this.sleepy}}
-      <li>
-        {{this.name}}
+              <form action="/{{this.id}}?_method=PUT" method="POST">
+                <input type="hidden" name="devoured" value="true">
+                <button type="submit">Devour It!</button>
+              </form>
 
-        <form action="/{{this.id}}?_method=PUT" method="POST">
-          <input type="hidden" name="sleepy" value="true">
-          <button type="submit">SLEEP TIME!</button>
-        </form>
+            </li>
+          {{/unless}}
+        {{/each}}
+      </ul>
+    </div>
+    <div class="burger-holder" id="eaten">
+      <ul>
+        {{#each burgers}}
+          {{#if this.devoured}}
+            <li>
+              {{this.id}}. {{this.burger_name}}
 
-        {{> cats/delete-cat}}
-      </li>
-    {{/unless}}
-  {{/each}}
-</ul>
+              <form action="/{{this.id}}?_method=PUT" method="POST">
+                <input type="hidden" name="devoured" value="false">
+                <button type="submit">Send it back!</button>
+              </form>
 
-<h2>Cats that are sleepy!</h2>
-
-<ul>
-  {{#each cats}}
-    {{#if this.sleepy}}
-      <li>
-        {{this.name}}
-
-        <form action="/{{this.id}}?_method=PUT" method="POST">
-          <input type="hidden" name="sleepy" value="false">
-          <button type="submit">WAKE UP!</button>
-        </form>
-
-        {{> cats/delete-cat}}
-      </li>
-    {{/if}}
-  {{/each}}
-</ul>
-
-<h2>Add a Cat</h2>
-<form class="create-update-form" action="/" method="POST">
-
-  <div class="form-group">
-    <label for="ca">Cat Name:</label>
-    <input type="text" id="ca" name="name">
+            </li>
+          {{/if}}
+        {{/each}}
+      </ul>
+    </div>
   </div>
 
-  <div class="form-group">
-    <label for="slee">Sleepy?</label><br>
-    <input type="radio" name="sleepy" value="1" checked> Sleepy!<br>
-    <input type="radio" name="sleepy" value="0"> Awake
-  </div>
+    <div class="container clear txt-cntr" id="create_burger">
 
-  <button type="submit">Add Cat</button>
-</form>
+    <div class="form-group">
+    <form class="create-update-form" action="/" method="POST">
+
+      
+        <textarea id="ca" name="name"></textarea></br>
+      
+
+      <button type="submit">Add Burger</button>
+
+    </form>
+          
+    </div>
+  <p>Enter a burger you want to eat and click the "Add Burger" button above.</p>
+  </div>
+</div>
